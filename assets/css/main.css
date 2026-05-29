@@ -33,6 +33,18 @@ body {
 	line-height: 1;
 }
 
+/* Ensure footer stays at bottom when content is short (apply only to pages with `short` body class) */
+body.short {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+/* Make footer stick to bottom on short pages */
+body.short #footer {
+	margin-top: auto;
+}
+
 ol, ul {
 	list-style: none;
 }
@@ -2578,6 +2590,14 @@ input, select, textarea {
 				font-size: 1.5em;
 			}
 
+			/* Inline BlueSky SVG sizing in footer icons */
+			ul.icons li a.bluesky-icon svg {
+				width: 1.5em;
+				height: 1.5em;
+				vertical-align: middle;
+				margin-right: 0.4em;
+			}
+
 /* Major Icons */
 
 	ul.major-icons {
@@ -2913,7 +2933,7 @@ input, select, textarea {
 /* Header */
 
 	#header {
-		padding: 3em 0 2em 0 ;
+		padding: 7em 0 2em 0 ;
 		background-color: #4686a0;
 		color: rgba(255, 255, 255, 0.75);
 		background-attachment: fixed,							fixed,							fixed;
@@ -3005,6 +3025,37 @@ input, select, textarea {
 			color: #ffffff;
 		}
 
+/* Responsive header spacing to account for fixed navbar height */
+@media screen and (max-width: 980px) {
+	#header {
+		padding: 5.5em 0 1.5em 0;
+	}
+	.navbar + section,
+	.navbar + * {
+		margin-top: 3.0em;
+	}
+}
+
+@media screen and (max-width: 736px) {
+	#header {
+		padding: 4.5em 0 1.25em 0;
+	}
+	.navbar + section,
+	.navbar + * {
+		margin-top: 2.6em;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	#header {
+		padding: 3.6em 0 1em 0;
+	}
+	.navbar + section,
+	.navbar + * {
+		margin-top: 2.2em;
+	}
+}
+
 /* Navbar - fixed to top */
 .navbar {
 	position: fixed;
@@ -3035,7 +3086,7 @@ input, select, textarea {
 /* Ensure content after the navbar isn't hidden behind it */
 .navbar + section,
 .navbar + * {
-	margin-top: 2.4em;
+	margin-top: 3.6em;
 }
 
 		#header h1 {
@@ -3270,7 +3321,7 @@ input, select, textarea {
 		/* Header */
 
 			#header {
-				padding: 3em 0 2em 0 ;
+				padding: 4em 0 2em 0 ;
 			}
 
 	}
