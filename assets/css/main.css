@@ -2590,14 +2590,6 @@ input, select, textarea {
 				font-size: 1.5em;
 			}
 
-			/* Inline BlueSky SVG sizing in footer icons */
-			ul.icons li a.bluesky-icon svg {
-				width: 1.5em;
-				height: 1.5em;
-				vertical-align: middle;
-				margin-right: 0.4em;
-			}
-
 /* Major Icons */
 
 	ul.major-icons {
