@@ -3315,8 +3315,8 @@ input, select, textarea {
 
 	.back-to-top {
 		position: fixed;
-		bottom: 3.25rem;
-		right: 3.25rem;
+		bottom: 5rem;
+		right: 5rem;
 		display: none;
 		width: 2.5rem;
 		height: 2.5rem;
