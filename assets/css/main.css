@@ -3317,7 +3317,7 @@ input, select, textarea {
 		position: fixed;
 		bottom: 5rem;
 		right: 5rem;
-		display: none;
+		display: flex;
 		width: 2.5rem;
 		height: 2.5rem;
 		background-color: rgba(120, 170, 180, 0.9);
@@ -3327,12 +3327,15 @@ input, select, textarea {
 		font-size: 1.5rem;
 		cursor: pointer;
 		z-index: 999;
-		transition: background-color 0.3s ease, opacity 0.3s ease;
+		transition: opacity 0.32s cubic-bezier(.2,.9,.2,1), transform 0.32s cubic-bezier(.2,.9,.2,1);
 		align-items: center;
 		justify-content: center;
 		text-decoration: none;
 		line-height: 2.5rem;
 		text-align: center;
+		opacity: 0;
+		transform: translateY(0.75rem);
+		pointer-events: none;
 	}
 
 	.back-to-top:hover {
@@ -3340,7 +3343,9 @@ input, select, textarea {
 	}
 
 	.back-to-top.show {
-		display: flex;
+		opacity: 1;
+		transform: translateY(0);
+		pointer-events: auto;
 	}
 		/* Basic */
 

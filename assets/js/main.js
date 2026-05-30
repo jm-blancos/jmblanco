@@ -54,21 +54,64 @@
 
 		$window.on('scroll', function() {
 			var st = $window.scrollTop();
-			if (st > 100) {
-				if (backToTopButton && backToTopButton.length) {
+			if (backToTopButton && backToTopButton.length) {
+				if (st > 100) {
 					backToTopButton.addClass('show');
-					backToTopButton.css('display', 'flex');
-				}
-			} else {
-				if (backToTopButton && backToTopButton.length) {
+				} else {
 					backToTopButton.removeClass('show');
-					backToTopButton.css('display', 'none');
 				}
 			}
 		});
 
 		// Trigger a scroll event on load to set initial state
 		$window.trigger('scroll');
+
+		// Avoid colliding with the footer: compute and adjust bottom offset
+		(function() {
+			var $footer = $('#footer');
+			var defaultBottom = null;
+
+			function adjustForFooter() {
+				if (!backToTopButton || !backToTopButton.length) return;
+				if (!defaultBottom) {
+					var computedBottom = NaN;
+					try {
+						var cs = window.getComputedStyle(backToTopButton[0]);
+						if (cs) computedBottom = parseFloat(cs.getPropertyValue('bottom'));
+					} catch (e) {
+						computedBottom = NaN;
+					}
+					if (!isFinite(computedBottom)) {
+						var cb = backToTopButton.css('bottom');
+						computedBottom = cb ? parseFloat(cb) : NaN;
+					}
+					defaultBottom = isFinite(computedBottom) ? computedBottom : 80; // px fallback
+				}
+
+				if (!$footer || $footer.length === 0) {
+					backToTopButton.css('bottom', defaultBottom + 'px');
+					return;
+				}
+
+				var footerTop = $footer.offset().top;
+				var st = $window.scrollTop();
+				var wh = $window.height();
+				var visibleOverlap = (st + wh) - footerTop;
+
+				if (visibleOverlap > 0) {
+					var margin = 16; // px gap between button and footer
+					var newBottom = defaultBottom + visibleOverlap + margin;
+					backToTopButton.css('bottom', newBottom + 'px');
+				} else {
+					backToTopButton.css('bottom', defaultBottom + 'px');
+				}
+			}
+
+			// Call on scroll and resize
+			$window.on('scroll resize', adjustForFooter);
+			// Initial adjust
+			adjustForFooter();
+		})();
 
 		backToTopButton.on('click', function(e) {
 			e.preventDefault();
